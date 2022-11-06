@@ -1,6 +1,6 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="646,3074" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="684.6666666666666,4072.666666666666" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="33">
+    <scg:List x:TypeArguments="x:String" Capacity="66">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -34,10 +34,11 @@
       <x:String>UiPath.DataTableUtilities</x:String>
       <x:String>UiPath.Excel</x:String>
       <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="48">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="96">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -85,20 +86,28 @@
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="656,3009.3333333333335" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="580,2027.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap2010:Annotation.AnnotationText="Main Sequence:&#xA;&#xA;1. Open Browser (Chrome) and go to Amazon (UrlE_Shop).&#xA;2. In the main page, look for &quot;laptops&quot; (TargetItem).&#xA;3. In the first page, get product info for each item.&#xA;4. In an Excel page, show a table with the name of the item, the description and the photo." DisplayName="Main Wrapper" sap:VirtualizedContainerService.HintSize="614,2919.3333333333335" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence sap2010:Annotation.AnnotationText="Main Sequence:&#xA;&#xA;1. Open Browser (Chrome) and go to Amazon (UrlE_Shop).&#xA;2. In the main page, look for &quot;laptops&quot; (TargetItem).&#xA;3. In the first page, get product info for each item.&#xA;4. In an Excel page, show a table with the name of the item, the description and the photo." DisplayName="Main Wrapper" sap:VirtualizedContainerService.HintSize="652.6666666666666,3607.3333333333335" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Default="https://www.amazon.com.mx/" Name="UrlE_Shop" />
         <Variable x:TypeArguments="ui:Browser" Name="BrwE_Shop" />
-        <Variable x:TypeArguments="sd:DataTable" Name="Col_ItemImageURL" />
-        <Variable x:TypeArguments="x:String" Default="Laptop" Name="TargetItem" />
+        <Variable x:TypeArguments="sd:DataTable" Name="Col_ItemURL" />
+        <Variable x:TypeArguments="x:String" Name="TargetItem">
+          <Variable.Default>
+            <Literal x:TypeArguments="x:String">laptop</Literal>
+          </Variable.Default>
+        </Variable>
         <Variable x:TypeArguments="x:String" Name="OutRepFileName" />
         <Variable x:TypeArguments="sd:DataTable" Name="ScrappingDataTable" />
       </Sequence.Variables>
@@ -108,19 +117,19 @@
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Private="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser and go to Amazon" Hidden="True" sap:VirtualizedContainerService.HintSize="552,1997.3333333333333" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" UiBrowser="[BrwE_Shop]" Url="[UrlE_Shop]">
+      <ui:OpenBrowser AutomaticallyDownloadWebDriver="{x:Null}" CommunicationMethod="{x:Null}" Private="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser and go to Amazon" Hidden="True" sap:VirtualizedContainerService.HintSize="590.6666666666666,2418.6666666666665" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" UiBrowser="[BrwE_Shop]" Url="[UrlE_Shop]">
         <ui:OpenBrowser.Body>
           <ActivityAction x:TypeArguments="x:Object">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="518,1884.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="556.6666666666666,2306" sap2010:WorkflowViewState.IdRef="Sequence_3">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into - To looking for a Product" EmptyField="True" sap:VirtualizedContainerService.HintSize="476,144" sap2010:WorkflowViewState.IdRef="TypeInto_2" SimulateType="True" Text="[TargetItem]">
+              <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into - To looking for a Product" EmptyField="True" sap:VirtualizedContainerService.HintSize="514.6666666666666,144" sap2010:WorkflowViewState.IdRef="TypeInto_2" SimulateType="True" Text="[TargetItem]">
                 <ui:TypeInto.Target>
                   <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="19afd906-577f-4a6e-81f7-8ebce8739af8" InformativeScreenshot="6d26778689e9c63e0e8736194e071854" Selector="&lt;webctrl id='twotabsearchtextbox' tag='INPUT' /&gt;">
                     <ui:Target.TimeoutMS>
@@ -132,92 +141,119 @@
                   </ui:Target>
                 </ui:TypeInto.Target>
               </ui:TypeInto>
-              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" sap2010:Annotation.AnnotationText="" ContinueOnError="True" DataTable="[Col_ItemImageURL]" DisplayName="Extract URL for each Item" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='UrlItem' attr='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='img' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="476,116" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="0" NextLinkSelector="&lt;webctrl aria-label='Ir a la página siguiente, página 2' tag='A' /&gt;" SimulateClick="True">
+              <ui:SendHotkey ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Send Hotkey - Enter to confirm query" sap:VirtualizedContainerService.HintSize="514.6666666666666,165.33333333333334" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="enter" KeyModifiers="None" SpecialKey="True">
+                <ui:SendHotkey.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4cdc4b4f-3628-4540-a0bc-135e5c3f7fef" InformativeScreenshot="73704378cbfd59ff0e6f5d907f6c7c55" Selector="&lt;webctrl id='twotabsearchtextbox' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SendHotkey.Target>
+              </ui:SendHotkey>
+              <ui:ExtractData DelayBetweenPagesMS="{x:Null}" NextLinkSelector="{x:Null}" ContinueOnError="True" DataTable="[Col_ItemURL]" DisplayName="Extract URL for each Item" ExtractMetadata="&lt;extract&gt;&lt;column exact='1' name='Col_URLItems' attr='href'&gt;&lt;webctrl tag='div' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='div' idx='2' /&gt;&lt;webctrl tag='span' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;webctrl tag='div' idx='1' /&gt;&lt;webctrl tag='img' idx='1' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap:VirtualizedContainerService.HintSize="514.6666666666666,116" sap2010:WorkflowViewState.IdRef="ExtractData_2" MaxNumberOfResults="0" SimulateClick="True">
                 <ui:ExtractData.Target>
-                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="3ec4803c-9f63-40e5-9e3d-05859cad5cb6" InformativeScreenshot="75d4fd1a671299945b848af6f56f824e" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span&amp;gt;div' parentid='search' tag='DIV' /&gt;" WaitForReady="COMPLETE">
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6e8e50ba-3407-41bc-9069-73f9fea4c898" InformativeScreenshot="ac033a89a5e6f040b6fb38009948a28a" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;span&amp;gt;div' parentid='search' tag='DIV' /&gt;" WaitForReady="COMPLETE">
                     <ui:Target.TimeoutMS>
                       <InArgument x:TypeArguments="x:Int32" />
                     </ui:Target.TimeoutMS>
                   </ui:Target>
                 </ui:ExtractData.Target>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
               </ui:ExtractData>
-              <ui:BuildDataTable sap2010:Annotation.AnnotationText="1. ItemDesc&#xA;2. ItemURL&#xA;3. ItemImageURL&#xD;&#xA;4. ItemImage" DataTable="[ScrappingDataTable]" DisplayName="Init Output DataTable (ScrappingDataTable)" sap:VirtualizedContainerService.HintSize="476,147.33333333333334" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xD;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xD;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xD;&#xA;      &lt;xs:complexType&gt;&#xD;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xD;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xD;&#xA;            &lt;xs:complexType&gt;&#xD;&#xA;              &lt;xs:sequence&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ItemDesc&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ItemURL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;250&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ItemImageURL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;250&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;                &lt;xs:element name=&quot;ItemImage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xD;&#xA;                  &lt;xs:simpleType&gt;&#xD;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xD;&#xA;                      &lt;xs:maxLength value=&quot;250&quot; /&gt;&#xD;&#xA;                    &lt;/xs:restriction&gt;&#xD;&#xA;                  &lt;/xs:simpleType&gt;&#xD;&#xA;                &lt;/xs:element&gt;&#xD;&#xA;              &lt;/xs:sequence&gt;&#xD;&#xA;            &lt;/xs:complexType&gt;&#xD;&#xA;          &lt;/xs:element&gt;&#xD;&#xA;        &lt;/xs:choice&gt;&#xD;&#xA;      &lt;/xs:complexType&gt;&#xD;&#xA;    &lt;/xs:element&gt;&#xD;&#xA;  &lt;/xs:schema&gt;&#xD;&#xA;&lt;/NewDataSet&gt;">
+              <ui:BuildDataTable sap2010:Annotation.AnnotationText="1. ItemDesc&#xA;2. ItemURL&#xA;3. ItemImageURL&#xA;4. ItemImage" DataTable="[ScrappingDataTable]" DisplayName="Init Output DataTable (ScrappingDataTable)" sap:VirtualizedContainerService.HintSize="514.6666666666666,147.33333333333334" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;ItemDesc&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ItemURL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ItemImageURL&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;ItemImage&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;500&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
               </ui:BuildDataTable>
-              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="" DataTable="[Col_ItemImageURL]" DisplayName="For Each Row in Col_ItemImageURL" sap:VirtualizedContainerService.HintSize="476,1267.3333333333333" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="" DataTable="[Col_ItemURL]" DisplayName="For Each Row in Col_ItemImageURL" sap:VirtualizedContainerService.HintSize="514.6666666666666,1483.3333333333333" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
                 <ui:ForEachRow.Body>
                   <ActivityAction x:TypeArguments="sd:DataRow">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="sd:DataRow" Name="URLCurrentItem" />
                     </ActivityAction.Argument>
-                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="442,1142" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="480.6666666666667,1358" sap2010:WorkflowViewState.IdRef="Sequence_6">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="For each Item in the Column" sap:VirtualizedContainerService.HintSize="400,1052" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                        <Sequence.Variables>
-                          <Variable x:TypeArguments="sd:DataTable" Name="Col_ItemDec" />
-                          <Variable x:TypeArguments="x:String" Name="StrItemDesc" />
-                          <Variable x:TypeArguments="x:String" Name="StrItemImageURL" />
-                          <Variable x:TypeArguments="x:String" Name="StrItemURL" />
-                        </Sequence.Variables>
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                        <Assign DisplayName="Assign - StrItemURL" sap:VirtualizedContainerService.HintSize="338,72" sap2010:WorkflowViewState.IdRef="Assign_1">
-                          <Assign.To>
-                            <OutArgument x:TypeArguments="x:String">[StrItemURL]</OutArgument>
-                          </Assign.To>
-                          <Assign.Value>
-                            <InArgument x:TypeArguments="x:String">[URLCurrentItem(0).ToString]</InArgument>
-                          </Assign.Value>
-                        </Assign>
-                        <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To - Target Item" sap:VirtualizedContainerService.HintSize="338,68.66666666666667" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[StrItemURL]" />
-                        <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="aaname" DisplayName="Get Attribute - ItemDesc" sap:VirtualizedContainerService.HintSize="338,214.66666666666666" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
-                          <ui:GetAttribute.Result>
-                            <OutArgument x:TypeArguments="x:String">[StrItemDesc]</OutArgument>
-                          </ui:GetAttribute.Result>
-                          <ui:GetAttribute.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4604090b-765c-4833-9009-c12c1d769e06" InformativeScreenshot="99fc3d620979333de52f9fd604b6c938" Selector="&lt;webctrl id='productTitle' tag='SPAN' aaname='        Gateway Laptop GWNR71517-BL Ultra Slim 15.6 Pulgadas, FHD, AMD Ryzen 7 Radeon RX Vega 10, SSD 512GB, 8GB RAM, escáner de Huellas Dactilares, HDMI, Windows 11 Home, Negro       ' /&gt;">
-                              <ui:Target.TimeoutMS>
-                                <InArgument x:TypeArguments="x:Int32" />
-                              </ui:Target.TimeoutMS>
-                              <ui:Target.WaitForReady>
-                                <InArgument x:TypeArguments="ui:WaitForReady" />
-                              </ui:Target.WaitForReady>
-                            </ui:Target>
-                          </ui:GetAttribute.Target>
-                        </ui:GetAttribute>
-                        <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="src" DisplayName="Get Attribute - ItemImageURL" sap:VirtualizedContainerService.HintSize="338,214.66666666666666" sap2010:WorkflowViewState.IdRef="GetAttribute_2">
-                          <ui:GetAttribute.Result>
-                            <OutArgument x:TypeArguments="x:String">[StrItemImageURL]</OutArgument>
-                          </ui:GetAttribute.Result>
-                          <ui:GetAttribute.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5dd089ff-52de-4bad-8deb-253efd0e032e" InformativeScreenshot="775c27d2758130bbd0cdace2e3030ea6" Selector="&lt;webctrl parentid='main-image-container' src='https://m.media-amazon.com/images/I/716b07-bFnL._AC_SX522_.jpg' tag='IMG' /&gt;">
-                              <ui:Target.TimeoutMS>
-                                <InArgument x:TypeArguments="x:Int32" />
-                              </ui:Target.TimeoutMS>
-                              <ui:Target.WaitForReady>
-                                <InArgument x:TypeArguments="ui:WaitForReady" />
-                              </ui:Target.WaitForReady>
-                            </ui:Target>
-                          </ui:GetAttribute.Target>
-                        </ui:GetAttribute>
-                        <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{StrItemDesc, StrItemURL, StrItemImageURL, StrItemImageURL}]" DataTable="[ScrappingDataTable]" DisplayName="Add Data Row - Insert Results" sap:VirtualizedContainerService.HintSize="338,200" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
-                      </Sequence>
+                      <TryCatch DisplayName="Try Catch - For each Item" sap:VirtualizedContainerService.HintSize="438.6666666666667,1268" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                        <TryCatch.Try>
+                          <Sequence DisplayName="For each Item in the Column" sap:VirtualizedContainerService.HintSize="400,1020" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                            <Sequence.Variables>
+                              <Variable x:TypeArguments="sd:DataTable" Name="Col_ItemDec" />
+                              <Variable x:TypeArguments="x:String" Name="StrItemDesc" />
+                              <Variable x:TypeArguments="x:String" Name="StrItemImageURL" />
+                              <Variable x:TypeArguments="x:String" Name="StrItemURL" />
+                            </Sequence.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign DisplayName="Assign - StrItemURL" sap:VirtualizedContainerService.HintSize="358,72" sap2010:WorkflowViewState.IdRef="Assign_1">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[StrItemURL]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[URLCurrentItem(0).ToString]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <ui:NavigateTo Browser="{x:Null}" DisplayName="Navigate To - Target Item" sap:VirtualizedContainerService.HintSize="358,68.66666666666667" sap2010:WorkflowViewState.IdRef="NavigateTo_1" Url="[StrItemURL]" />
+                            <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="aaname" DisplayName="Get Attribute - ItemDesc" sap:VirtualizedContainerService.HintSize="358,214.66666666666666" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+                              <ui:GetAttribute.Result>
+                                <OutArgument x:TypeArguments="x:String">[StrItemDesc]</OutArgument>
+                              </ui:GetAttribute.Result>
+                              <ui:GetAttribute.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="4604090b-765c-4833-9009-c12c1d769e06" InformativeScreenshot="99fc3d620979333de52f9fd604b6c938" Selector="&lt;webctrl id='productTitle' tag='SPAN' aaname='*' /&gt;">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                  <ui:Target.WaitForReady>
+                                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                                  </ui:Target.WaitForReady>
+                                </ui:Target>
+                              </ui:GetAttribute.Target>
+                            </ui:GetAttribute>
+                            <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="src" DisplayName="Get Attribute - ItemImageURL" sap:VirtualizedContainerService.HintSize="358,214.66666666666666" sap2010:WorkflowViewState.IdRef="GetAttribute_2">
+                              <ui:GetAttribute.Result>
+                                <OutArgument x:TypeArguments="x:String">[StrItemImageURL]</OutArgument>
+                              </ui:GetAttribute.Result>
+                              <ui:GetAttribute.Target>
+                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5dd089ff-52de-4bad-8deb-253efd0e032e" InformativeScreenshot="775c27d2758130bbd0cdace2e3030ea6" Selector="&lt;webctrl id='landingImage' tag='IMG' src='*' /&gt;">
+                                  <ui:Target.TimeoutMS>
+                                    <InArgument x:TypeArguments="x:Int32" />
+                                  </ui:Target.TimeoutMS>
+                                  <ui:Target.WaitForReady>
+                                    <InArgument x:TypeArguments="ui:WaitForReady" />
+                                  </ui:Target.WaitForReady>
+                                </ui:Target>
+                              </ui:GetAttribute.Target>
+                            </ui:GetAttribute>
+                            <ui:AddDataRow DataRow="{x:Null}" ArrayRow="[{StrItemDesc.Trim, StrItemURL, StrItemImageURL, StrItemImageURL}]" DataTable="[ScrappingDataTable]" DisplayName="Add Data Row - Insert Results" sap:VirtualizedContainerService.HintSize="358,200" sap2010:WorkflowViewState.IdRef="AddDataRow_1" />
+                          </Sequence>
+                        </TryCatch.Try>
+                        <TryCatch.Catches>
+                          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404.6666666666667,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ActivityAction x:TypeArguments="s:Exception">
+                              <ActivityAction.Argument>
+                                <DelegateInArgument x:TypeArguments="s:Exception" Name="Exception" />
+                              </ActivityAction.Argument>
+                              <ui:LogMessage DisplayName="Log Message - Exception Message (Passing)" sap:VirtualizedContainerService.HintSize="334,104.66666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[Exception.Message+&quot; at &quot;+Exception.Source]" />
+                            </ActivityAction>
+                          </Catch>
+                        </TryCatch.Catches>
+                      </TryCatch>
                     </Sequence>
                   </ActivityAction>
                 </ui:ForEachRow.Body>
@@ -230,8 +266,14 @@
             </Sequence>
           </ActivityAction>
         </ui:OpenBrowser.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
       </ui:OpenBrowser>
-      <Assign DisplayName="Assign - OutRepFileName" sap:VirtualizedContainerService.HintSize="552,72" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign DisplayName="Assign - OutRepFileName" sap:VirtualizedContainerService.HintSize="590.6666666666666,72" sap2010:WorkflowViewState.IdRef="Assign_2">
         <Assign.To>
           <OutArgument x:TypeArguments="x:String">[OutRepFileName]</OutArgument>
         </Assign.To>
@@ -239,25 +281,21 @@
           <InArgument x:TypeArguments="x:String">["AmazonScrappingReport_"+DateTime.Now.ToString("ddMMyyyy_hhmmss")+".xlsx"]</InArgument>
         </Assign.Value>
       </Assign>
-      <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="Excel Application Scope - Write Output Data" sap:VirtualizedContainerService.HintSize="552,536" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[&quot;Data\Output\&quot;+OutRepFileName]">
+      <ui:CopyFile ContinueOnError="{x:Null}" Destination="[&quot;Data\Output\&quot;+OutRepFileName]" DisplayName="Copy File - OutRepFileName" sap:VirtualizedContainerService.HintSize="590.6666666666666,168" sap2010:WorkflowViewState.IdRef="CopyFile_3" Overwrite="True" Path="Data\Input\OutputTemplate.xlsx" />
+      <ui:ExcelApplicationScope Password="{x:Null}" sap2010:Annotation.AnnotationText="" DisplayName="Excel Application Scope - Write Output Data" sap:VirtualizedContainerService.HintSize="590.6666666666666,594.6666666666666" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[&quot;Data\Output\&quot;+OutRepFileName]">
         <ui:ExcelApplicationScope.Body>
           <ActivityAction x:TypeArguments="ui:WorkbookApplication">
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
             </ActivityAction.Argument>
-            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="442,417.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
+            <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="442,445.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <Sequence DisplayName="Building the Output Report" sap:VirtualizedContainerService.HintSize="400,327.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
+              <Sequence DisplayName="Building the Output Report" sap:VirtualizedContainerService.HintSize="400,355.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
                 <Sequence.Variables>
-                  <Variable x:TypeArguments="x:String" Name="pathTurnURLtoImages">
-                    <Variable.Default>
-                      <Literal x:TypeArguments="x:String">C:\Users\Soportehpcg\OneDrive\Documentos\UiPath\HPCg_TechTest_ClassicExp\Data\Scripts\</Literal>
-                    </Variable.Default>
-                  </Variable>
                   <Variable x:TypeArguments="x:String" Name="urlColumn" />
                 </Sequence.Variables>
                 <sap:WorkflowViewStateService.ViewState>
@@ -265,12 +303,17 @@
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
-                <ui:ExcelWriteRange AddHeaders="True" DataTable="[ScrappingDataTable]" DisplayName="Write Range - ScrappingDataTable" sap:VirtualizedContainerService.HintSize="338,96.66666666666667" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_1" SheetName="Sheet1" StartingCell="A1" />
-                <ui:ExecuteMacro ContinueOnError="{x:Null}" MacroOutput="{x:Null}" DisplayName="Execute Macro - TurnURLtoImage" sap:VirtualizedContainerService.HintSize="338,68.66666666666667" sap2010:WorkflowViewState.IdRef="ExecuteMacro_1" MacroName="[pathTurnURLtoImages]" />
+                <ui:ExcelWriteRange AddHeaders="False" DataTable="[ScrappingDataTable]" DisplayName="Write Range - ScrappingDataTable" sap:VirtualizedContainerService.HintSize="338,96.66666666666667" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_3" SheetName="Sheet1" StartingCell="A2" />
+                <ui:InvokeVBA OutputValue="{x:Null}" CodeFilePath="Data\Scripts\TurnURLtoImages.vb" DisplayName="Invoke VBA" EntryMethodName="Add_Images_To_Cells" sap:VirtualizedContainerService.HintSize="338,96.66666666666667" sap2010:WorkflowViewState.IdRef="InvokeVBA_1" />
               </Sequence>
             </Sequence>
           </ActivityAction>
         </ui:ExcelApplicationScope.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
       </ui:ExcelApplicationScope>
     </Sequence>
   </Sequence>

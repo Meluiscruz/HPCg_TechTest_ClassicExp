@@ -9,10 +9,12 @@ Public Sub Add_Images_To_Cells()
         urlColumn = "D"
         lastRow = .Cells(Rows.Count, urlColumn).End(xlUp).Row
         Set URLs = .Range(urlColumn & "2:" & urlColumn & lastRow)
+        Rows("2:" + Cstr(lastRow)).RowHeight = 64
+
     End With
 
     For Each URL In URLs
-        If InStr(URL.Value, "http") > 0 Then
+        If InStr(URL.Value, "https") > 0 Then
             URL.Offset(0, 0).Select
             Set pic = URL.Parent.Pictures.Insert(URL.Value)
             With pic.ShapeRange
