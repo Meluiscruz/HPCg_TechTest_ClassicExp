@@ -20629,11 +20629,11 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "HPCg_PruebaTecnica_ClassicVersion",
-      "projectName": "HPCg_PruebaTecnica_ClassicVersion",
-      "projectPath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_PruebaTecnica_ClassicVersion\\.local",
+      "projectUniqueName": "HPCg_TechTest_ClassicExp",
+      "projectName": "HPCg_TechTest_ClassicExp",
+      "projectPath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_TechTest_ClassicExp\\.local",
       "packagesPath": "C:\\Users\\Soportehpcg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_PruebaTecnica_ClassicVersion\\.local",
+      "outputPath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_TechTest_ClassicExp\\.local",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ]

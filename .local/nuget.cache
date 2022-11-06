@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P/yBR19xpI7nNAbc5XDTqlLXIr6TrtbqxoBqBJEAW288ZCKrSYXDV40h6DPl3bZPwQxdjrVpHbB8db2vN8buqQ==",
+  "dgSpecHash": "igbvMdtrPRFdhvtqfLXDVeJOh/blUsndLN6f2lkAve4pHt/2CB9Dp7f1+H+rJdObtcO/f/GSA2nuz7kAR3KpjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_PruebaTecnica_ClassicVersion\\.local\\",
+  "projectFilePath": "C:\\Users\\Soportehpcg\\OneDrive\\Documentos\\UiPath\\HPCg_TechTest_ClassicExp\\.local\\",
   "expectedPackageFiles": [
     "C:\\Users\\Soportehpcg\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\Soportehpcg\\.nuget\\packages\\azure.core\\1.18.0\\azure.core.1.18.0.nupkg.sha512",
