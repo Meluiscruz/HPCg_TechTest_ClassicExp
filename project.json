@@ -1,6 +1,6 @@
 {
-  "name": "HPCg_PruebaTecnica_ClassicVersion",
-  "description": "Prueba técnica para HPCg (Versión Clásica)",
+  "name": "HPCg_TechTest_ClassicExp",
+  "description": "Technical Test for HPCg (Classic Experience).",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.16.0]",
