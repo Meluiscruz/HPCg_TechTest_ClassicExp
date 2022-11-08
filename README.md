@@ -1,2 +1,3 @@
-# HPCg_TechTest_ClassicExp
-Technical Test for HPCg (Classic Experience).
+# RPA Tech Test to HPCg (UiPath Classic version).
+
+RPA Technical Test for HPCg (Classic Experience).
